@@ -59,7 +59,7 @@ function create() { // criar os elementos
 }
 //movimentando no eixo x
 function update() { // modificar posição dos elementos no jogo
-    if (passarinho.x === 100) {
+    if (passarinho.x <= 100) {
         passarinho.setFlip(false, false); //setflip é para inverter a imagem
         passarinho.ida = true
     } 
@@ -67,7 +67,7 @@ function update() { // modificar posição dos elementos no jogo
         console.log("como esta antes dos 700, ele vai para a direita");
         passarinho.x += 5;
     }    
-    if (passarinho.x === 700) {
+    if (passarinho.x >= 700) {
         passarinho.setFlip(true, false);
         passarinho.ida = false;
     }
@@ -75,27 +75,26 @@ function update() { // modificar posição dos elementos no jogo
         console.log("como esta depois do 100, ele esta voltando, então a ida é falsa");
         passarinho.x -= 5;
     }  
-    
+//movimentando no eixo y
 
-
-
-    if (passarinho.y === 300) {  
-        passarinho.subida = true
-    } 
-    if (passarinho.y < 500 && passarinho.subida === true) {
-        console.log("como esta antes dos 700, ele vai para a subir");
-        passarinho.y += 3;
-    }    
-    if (passarinho.y === 500) {
-        passarinho.subida = false;
-    }
-    if (passarinho.y > 300 && passarinho.subida === false) {
-        console.log("como esta depois do 100, ele esta voltando, então a subida é falsa");
-        passarinho.y -= 3;
-    }
-
-    
+if (passarinho.y <= 300) {  
+    passarinho.subida = true;
+} 
+if (passarinho.y >= 500) {
+    passarinho.subida = false;
 }
+
+if (passarinho.subida) {
+    passarinho.y += 3;
+} else {
+    passarinho.y -= 3;
+}
+
+
+}
+
+    
+
 
 </script>
 

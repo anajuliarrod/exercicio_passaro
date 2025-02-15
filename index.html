@@ -1,0 +1,103 @@
+// Arquivo "index.html"
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <title>Exercício do Pássaro</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;  }
+    </style>
+</head>
+<body>
+
+<script>
+
+    // vamos escrever o código (JS + Phaser) aqui dentro!
+
+
+var config = { // configurações do jogo
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var game = new Phaser.Game(config);
+
+var passarinho //criando variável global
+
+function preload() { // carregar os assets
+    this.load.image('bg', 'assets/bg_space.png');
+    this.load.spritesheet('bird', 'assets/bird-red.png', { frameWidth: 75, frameHeight: 75 });
+}
+
+function create() { // criar os elementos
+    this.add.image(400, 300, 'bg').setScale(1.2);
+    passarinho = this.add.sprite(100, 300, 'bird').setScale(1.3);
+
+    this.anims.create({
+        key: 'fly', //nome da animação
+        frames: this.anims.generateFrameNumbers('bird', {start: 0, end: 7}), //frames da animação, divide a imagem em 7 partes
+        frameRate: 12, //velocidade da animação
+        repeat: -1
+    });
+
+    passarinho.anims.play('fly', true); //iniciar a animação
+}
+//movimentando no eixo x
+function update() { // modificar posição dos elementos no jogo
+    if (passarinho.x === 100) {
+        passarinho.setFlip(false, false); //setflip é para inverter a imagem
+        passarinho.ida = true
+    } 
+    if (passarinho.x < 700 && passarinho.ida === true) { 
+        console.log("como esta antes dos 700, ele vai para a direita");
+        passarinho.x += 5;
+    }    
+    if (passarinho.x === 700) {
+        passarinho.setFlip(true, false);
+        passarinho.ida = false;
+    }
+    if (passarinho.x > 100 && passarinho.ida === false) {
+        console.log("como esta depois do 100, ele esta voltando, então a ida é falsa");
+        passarinho.x -= 5;
+    }  
+    
+
+
+
+    if (passarinho.y === 300) {  
+        passarinho.subida = true
+    } 
+    if (passarinho.y < 500 && passarinho.subida === true) {
+        console.log("como esta antes dos 700, ele vai para a subir");
+        passarinho.y += 3;
+    }    
+    if (passarinho.y === 500) {
+        passarinho.subida = false;
+    }
+    if (passarinho.y > 300 && passarinho.subida === false) {
+        console.log("como esta depois do 100, ele esta voltando, então a subida é falsa");
+        passarinho.y -= 3;
+    }
+
+    
+}
+
+</script>
+
+</body>
+</html>
